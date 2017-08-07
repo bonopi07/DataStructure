@@ -15,7 +15,6 @@ ver 1.3: fixed default size (1MB)
 #define __ALLEN_STACK_H__
 
 #include <iostream>
-#include <limits>
 
 #define MAXSIZE 1000000
 
