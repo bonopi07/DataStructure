@@ -4,9 +4,10 @@ Author: Seongmin Jeong (Allen)
 Goal: design stack data structure using array
 function: insert, pop, peak, empty, full, print all data
 
-ver 1.0: use class, only store integer type
-ver 1.1: use template
-ver 1.2: use namespace
+ver 1.0: used class, only store integer type
+ver 1.1: used template
+ver 1.2: used namespace
+ver 1.3: fixed default size (1MB)
 
 */
 
@@ -14,6 +15,9 @@ ver 1.2: use namespace
 #define __ALLEN_STACK_H__
 
 #include <iostream>
+#include <limits>
+
+#define MAXSIZE 1000000
 
 namespace jsm {
 	template <typename T>
@@ -24,11 +28,13 @@ namespace jsm {
 		T *data;
 
 	public:
-		stack() : top(-1), data(NULL) {}
+		stack() : top(-1), dataLen(MAXSIZE) {
+			data = new T[MAXSIZE];
+		}
 
 		stack(unsigned int size) : top(-1), dataLen(size) {
 			data = new T[size];
-		};
+		}
 
 		bool IsEmpty() {
 			if (top == -1)
@@ -55,7 +61,8 @@ namespace jsm {
 		}
 
 		T Peak() {
-			return data[top];
+			if (!IsEmpty())
+				return data[top];
 		}
 
 		void PrintAllData() {
