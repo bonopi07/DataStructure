@@ -4,6 +4,7 @@ Goal: design queue data structure using array
 function: empty, full, enqueue, dequeue
 
 ver 1.0: use namespace, template, class -> simple linear queue
+ver 1.1: update -> simple circular queue
 
 */
 
@@ -21,13 +22,13 @@ namespace jsm {
 		int front, rear;
 		unsigned int dataLen;
 		T *data;
-
+		int reverse; // 1: front < rear, -1: rear < front
 	public:
-		queue() : front(-1), rear(-1), dataLen(MAXSIZE) {
+		queue() : front(-1), rear(-1), reverse(1), dataLen(MAXSIZE) {
 			data = new T[MAXSIZE];
 		}
 
-		queue(unsigned int size) : front(-1), rear(-1), dataLen(size) {
+		queue(unsigned int size) : front(-1), rear(-1), reverse(1), dataLen(size) {
 			data = new T[size];
 		}
 
@@ -39,25 +40,37 @@ namespace jsm {
 		}
 
 		bool IsFull() {
-			if (rear == front - (dataLen - 1))
+			if ((reverse == 1 && dataLen == rear - front) || (reverse == -1 && rear == front))
 				return true;
 			else
 				return false;
 		}
 
 		void Enqueue(T _data) {
-			if (!IsFull())
+			if (!IsFull()) {
+				if (rear == dataLen - 1) {
+					rear = -1;
+					reverse = -1;
+				}
+
 				data[++rear] = _data;
+			}
 		}
 
 		T Dequeue() {
-			if (!IsEmpty())
+			if (!IsEmpty()) {
+				if (front == dataLen - 1) {
+					front = -1;
+					reverse = 1;
+				}
+
 				return data[++front];
+			}
 		}
 
 		void PrintAllData() {
 			std::cout << "Queue: ";
-			for (int i = front+1; i <= rear; ++i)
+			for (int i = front + 1; i <= rear; ++i)
 				std::cout << data[i] << " ";
 			std::cout << std::endl;
 		}
