@@ -9,4 +9,4 @@ This repository is including variable data structures using C++, and I coded mys
 
 -Queue using linked list (finished)
 
--Binary Search Tree (ing)
+-Binary Search Tree using linked list (ing)
