@@ -3,21 +3,26 @@
 
 int main()
 {
-	jsm::stack<int> a(3);
+	jsm::Stack<int> a(3);
 
-	a.Insert(1);
-	a.Insert(3);
-	a.Insert(2);
+	std::cout << "insert 1" << std::endl;
+	a.insert(1);
+	std::cout << "insert 3" << std::endl;
+	a.insert(3);
+	std::cout << "insert 2" << std::endl;
+	a.insert(2);
 
-	a.PrintAllData();
+	a.printAllData();
 
-	a.Pop();
-	std::cout << a.Pop() << std::endl;
-	std::cout << a.Peak() << std::endl;
+	std::cout << "pop" << std::endl;
+	a.pop();
+	std::cout << a.pop() << std::endl;
+	std::cout << a.peak() << std::endl;
 
-	a.Insert(10);
+	std::cout << "insert 10" << std::endl;
+	a.insert(10);
 
-	a.PrintAllData();
+	a.printAllData();
 
 
 	return 0;

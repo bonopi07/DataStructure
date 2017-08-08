@@ -20,58 +20,58 @@ ver 1.3: fixed default size (1MB)
 
 namespace jsm {
 	template <typename T>
-	class stack {
+	class Stack {
 	private:
 		int top;
 		unsigned int dataLen;
 		T *data;
 
 	public:
-		stack() : top(-1), dataLen(MAXSIZE) {
+		Stack() : top(-1), dataLen(MAXSIZE) {
 			data = new T[MAXSIZE];
 		}
 
-		stack(unsigned int size) : top(-1), dataLen(size) {
+		Stack(unsigned int size) : top(-1), dataLen(size) {
 			data = new T[size];
 		}
 
-		bool IsEmpty() {
+		bool isEmpty() {
 			if (top == -1)
 				return true;
 			else
 				return false;
 		}
 
-		bool IsFull() {
+		bool isFull() {
 			if (top == dataLen - 1)
 				return true;
 			else
 				return false;
 		}
 
-		void Insert(T _data) {
-			if (!IsFull())
+		void insert(T _data) {
+			if (!isFull())
 				data[++top] = _data;
 		}
 
-		T Pop() {
-			if (!IsEmpty())
+		T pop() {
+			if (!isEmpty())
 				return data[top--];
 		}
 
-		T Peak() {
-			if (!IsEmpty())
+		T peak() {
+			if (!isEmpty())
 				return data[top];
 		}
 
-		void PrintAllData() {
+		void printAllData() {
 			std::cout << "Stack: ";
 			for (int i = 0; i <= top; ++i)
 				std::cout << data[i] << " ";
 			std::cout << std::endl;
 		}
 
-		~stack() {
+		~Stack() {
 			delete []data;
 		}
 	};
