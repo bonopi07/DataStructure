@@ -3,8 +3,9 @@ Author: Seongmin Jeong (Allen)
 Goal: design queue data structure using array
 function: empty, full, enqueue, dequeue
 
-ver 1.0: use namespace, template, class -> simple linear queue
-ver 1.1: update -> simple circular queue
+ver 1.0: used namespace, template, class -> simple linear queue
+ver 1.1: replaced storage from array to linked list
+ver 1.2: modified storing method, added size method
 
 */
 
@@ -12,74 +13,73 @@ ver 1.1: update -> simple circular queue
 #define __ALLEN_QUEUE_H__
 
 #include <iostream>
-
-#define MAXSIZE 1000000
+#include "../Node/allen_node.h"
 
 namespace jsm {
 	template <typename T>
 	class queue {
 	private:
-		int front, rear;
-		unsigned int dataLen;
-		T *data;
-		int reverse; // 1: front < rear, -1: rear < front
+		Node<T> *front, *rear;
+		unsigned int size;
 	public:
-		queue() : front(-1), rear(-1), reverse(1), dataLen(MAXSIZE) {
-			data = new T[MAXSIZE];
-		}
-
-		queue(unsigned int size) : front(-1), rear(-1), reverse(1), dataLen(size) {
-			data = new T[size];
-		}
+		queue() : front(NULL), rear(NULL), size(0) { }
 
 		bool IsEmpty() {
-			if (front == rear)
+			if (size == 0)
 				return true;
 			else
 				return false;
 		}
 
-		bool IsFull() {
-			if ((reverse == 1 && dataLen == rear - front) || (reverse == -1 && rear == front))
-				return true;
-			else
-				return false;
+		unsigned int getSize() {
+			return size;
 		}
 
 		void Enqueue(T _data) {
-			if (!IsFull()) {
-				if (rear == dataLen - 1) {
-					rear = -1;
-					reverse = -1;
-				}
+			Node<T> *newNode = new Node<T>;
 
-				data[++rear] = _data;
+			newNode->setData(_data);
+
+			if (size == 0) {
+				front = rear = newNode;
+				size += 1;
+				return;
 			}
+
+			rear->setLink(newNode);
+			rear = newNode;
+			size += 1;
 		}
 
 		T Dequeue() {
 			if (!IsEmpty()) {
-				if (front == dataLen - 1) {
-					front = -1;
-					reverse = 1;
-				}
+				T curData = front->getData();
+				Node<T> *curNode = front;
 
-				return data[++front];
+				front = front->getLink();
+
+				delete curNode;
+				size -= 1;
+
+				return curData;
 			}
 		}
 
 		void PrintAllData() {
 			std::cout << "Queue: ";
-			for (int i = front + 1; i <= rear; ++i)
-				std::cout << data[i] << " ";
+			Node<T> *iterNode;
+
+			for (iterNode = front; iterNode; iterNode = iterNode->getLink())
+				std::cout << iterNode->getData() << " ";
+			
 			std::cout << std::endl;
 		}
 
 		~queue() {
-			delete data;
+			while (!IsEmpty())
+				Dequeue();
 		}
 	};
 }
-
 
 #endif

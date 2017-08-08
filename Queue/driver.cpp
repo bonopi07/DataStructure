@@ -3,7 +3,7 @@
 #include <queue>
 int main()
 {
-	jsm::queue<int> q(3);
+	jsm::queue<int> q;
 	
 	q.Enqueue(1);
 	q.Enqueue(3);

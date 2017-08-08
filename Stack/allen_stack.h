@@ -72,7 +72,7 @@ namespace jsm {
 		}
 
 		~stack() {
-			delete data;
+			delete []data;
 		}
 	};
 }
