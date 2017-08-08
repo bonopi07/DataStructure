@@ -3,4 +3,6 @@ This repository is including variable data structures using C++, and I coded mys
 
 2017.08.02
 
--Stack (finished)
+-Stack using array (finished)
+-Node (finished)
+-Queue using linked list (finished)
