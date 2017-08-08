@@ -1,6 +1,7 @@
 /*
 Author: Seongmin Jeong (Allen)
 Goal: design binary search tree data structure using linked list
+function: insert, delete, search, traversal(pre, in, post)
 
 ver 1.0: used namespace, template, class
 
@@ -88,6 +89,33 @@ namespace jsm {
 				}
 			}
 		}
+	
+		void deleteNode(T _data) {
+			BTNode<T> *curNode = root;
+
+			if (!curNode)
+				return;
+
+			while (true) {
+				if (_data < curNode->getData()) {
+					if (curNode->getLeftNode())
+						curNode = curNode->getLeftNode();
+					else
+						break;
+				}
+				else if (_data > curNode->getData()) {
+					if (curNode->getRightNode())
+						curNode = curNode->getRightNode();
+					else
+						break;
+				}
+				else {
+
+				}
+			}
+
+		}
+	
 	};
 }
 
