@@ -1,21 +1,21 @@
 #include "allen_queue.h"
 #include <iostream>
-#include <queue>
+
 int main()
 {
-	jsm::queue<int> q;
+	jsm::Queue<int> q;
 	
-	q.Enqueue(1);
-	q.Enqueue(3);
-	q.Enqueue(5);
-	q.Enqueue(2);
+	q.enqueue(1);
+	q.enqueue(3);
+	q.enqueue(5);
+	q.enqueue(2);
 
-	std::cout << q.Dequeue() << std::endl;
-	std::cout << q.Dequeue() << std::endl;
+	std::cout << q.dequeue() << std::endl;
+	std::cout << q.dequeue() << std::endl;
 	
-	q.Enqueue(13);
+	q.enqueue(13);
 
-	q.PrintAllData();
+	q.printAllData();
 
 	return 0;
 }

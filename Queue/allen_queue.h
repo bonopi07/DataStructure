@@ -17,14 +17,14 @@ ver 1.2: modified storing method, added size method
 
 namespace jsm {
 	template <typename T>
-	class queue {
+	class Queue {
 	private:
 		Node<T> *front, *rear;
 		unsigned int size;
 	public:
-		queue() : front(NULL), rear(NULL), size(0) { }
+		Queue() : front(NULL), rear(NULL), size(0) { }
 
-		bool IsEmpty() {
+		bool isEmpty() {
 			if (size == 0)
 				return true;
 			else
@@ -35,7 +35,7 @@ namespace jsm {
 			return size;
 		}
 
-		void Enqueue(T _data) {
+		void enqueue(T _data) {
 			Node<T> *newNode = new Node<T>;
 
 			newNode->setData(_data);
@@ -51,8 +51,8 @@ namespace jsm {
 			size += 1;
 		}
 
-		T Dequeue() {
-			if (!IsEmpty()) {
+		T dequeue() {
+			if (!isEmpty()) {
 				T curData = front->getData();
 				Node<T> *curNode = front;
 
@@ -65,7 +65,7 @@ namespace jsm {
 			}
 		}
 
-		void PrintAllData() {
+		void printAllData() {
 			std::cout << "Queue: ";
 			Node<T> *iterNode;
 
@@ -75,9 +75,9 @@ namespace jsm {
 			std::cout << std::endl;
 		}
 
-		~queue() {
-			while (!IsEmpty())
-				Dequeue();
+		~Queue() {
+			while (!isEmpty())
+				dequeue();
 		}
 	};
 }
