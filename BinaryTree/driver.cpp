@@ -1,4 +1,4 @@
-#include "allen_binarytree.h"
+#include "allen_binarysearchtree.h"
 #include <iostream>
 
 int main()
