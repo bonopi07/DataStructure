@@ -1,7 +1,8 @@
 /*
+
 Author: Seongmin Jeong (Allen)
 Goal: design queue data structure using array
-function: empty, full, enqueue, dequeue
+function: empty, size, enqueue, dequeue, printAllData
 
 ver 1.0: used namespace, template, class -> simple linear queue
 ver 1.1: replaced storage from array to linked list
