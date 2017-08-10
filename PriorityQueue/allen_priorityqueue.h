@@ -5,6 +5,7 @@ Goal: design priority queue data structure using min heap(complete binary tree)
 Function: isEmpty, getSize, enqueue, dequeue, deleteAllData(=Heap Sort)
 
 ver 1.0: used namespace, template, class
+ver 1.1: finished all methods except deleteAllData
 
 */
 
@@ -25,7 +26,7 @@ namespace jsm {
 		BTNode<T>* root;
 		unsigned int size;
 
-		int setNode(BTNode<T> *ppNode, BTNode<T> *pNode, BTNode<T> *nNode, Stack<int> &s, bool isLeafNode) {
+		int setNode(BTNode<T> *pNode, BTNode<T> *cNode, BTNode<T> *nNode, Stack<int> &s, bool isLeafNode) {
 			if (s.getSize() == 1) {
 				isLeafNode = true;
 			}
@@ -33,23 +34,27 @@ namespace jsm {
 			if (!s.isEmpty()) {
 				if (s.pop() == 0) { // LEFT
 					if (isLeafNode) {
-						pNode->setLeftNode(nNode);
+						cNode->setLeftNode(nNode);
+						pNode = cNode;
+						cNode = nNode;
 					}
 					else {
-						ppNode = pNode;
-						pNode = pNode->getLeftNode();
-						if (setNode(ppNode, pNode, nNode, s, isLeafNode) == 0)
+						pNode = cNode;
+						cNode = cNode->getLeftNode();
+						if (setNode(pNode, cNode, nNode, s, isLeafNode) == 0)
 							return 0;
 					}
 				}
 				else { // RIGHT
 					if (isLeafNode) {
-						pNode->setRightNode(nNode);
+						cNode->setRightNode(nNode);
+						pNode = cNode;
+						cNode = nNode;
 					}
 					else {
-						ppNode = pNode;
-						pNode = pNode->getRightNode();
-						if (setNode(ppNode, pNode, nNode, s, isLeafNode) == 0)
+						pNode = cNode;
+						cNode = cNode->getRightNode();
+						if (setNode(pNode, cNode, nNode, s, isLeafNode) == 0)
 							return 0;
 					}
 				}
@@ -81,7 +86,7 @@ namespace jsm {
 
 		void enqueue(T _data) {
 			BTNode<T> *newNode = new BTNode<T>;
-			
+
 			newNode->setData(_data);
 			size += 1;
 			if (!root) {
@@ -98,7 +103,95 @@ namespace jsm {
 			}
 
 			// O(lgN): set new node //
-			setNode(this->root, this->root, newNode, directionStorage, false);			
+			setNode(this->root, this->root, newNode, directionStorage, false);
+		}
+
+		T dequeue() {
+			if (isEmpty())
+				return 0;
+
+			BTNode<T> *cNode = root;
+			T _data = root->getData();
+			if (size == 1) {
+				size = 0;
+				root = NULL;
+
+				delete cNode;
+				return _data;
+			}
+
+			// O(lgN): searching the place //
+			Stack<int> directionStorage((int)std::log2(size));
+			unsigned int _size = size;
+			while (_size != 1) {
+				directionStorage.push(_size % 2);
+				_size /= 2;
+			}
+
+			BTNode<T> *pNode = root;
+			bool isLeafNode = false;
+			while (!directionStorage.isEmpty()) {
+				if (directionStorage.getSize() == 1)
+					isLeafNode = true;
+
+				if (directionStorage.pop() == 0) {
+					pNode = cNode;
+					cNode = cNode->getLeftNode();
+					if (isLeafNode)
+						pNode->setLeftNode(NULL);
+				}
+				else {
+					pNode = cNode;
+					cNode = cNode->getRightNode();
+					if (isLeafNode)
+						pNode->setRightNode(NULL);
+				}
+
+			}
+			root->setData(cNode->getData());
+			size -= 1;
+			delete cNode;
+
+			cNode = root;
+			while (true) {
+				if (cNode->getRightNode()) {
+					if (cNode->getLeftNode()->getData() IS_LESS_THAN cNode->getRightNode()->getData()) {
+						if (cNode->getLeftNode()->getData() IS_LESS_THAN cNode->getData()) {
+							T tmp = cNode->getLeftNode()->getData();
+							cNode->getLeftNode()->setData(cNode->getData());
+							cNode->setData(tmp);
+
+							cNode = cNode->getLeftNode();
+						}
+						else
+							break;
+					}
+					else {
+						if (cNode->getRightNode()->getData() IS_LESS_THAN cNode->getData()) {
+							T tmp = cNode->getRightNode()->getData();
+							cNode->getRightNode()->setData(cNode->getData());
+							cNode->setData(tmp);
+
+							cNode = cNode->getRightNode();
+						}
+						else
+							break;
+					}
+				}
+				else if (cNode->getLeftNode()) {
+					if (cNode->getLeftNode()->getData() IS_LESS_THAN cNode->getData()) {
+						T tmp = cNode->getLeftNode()->getData();
+						cNode->getLeftNode()->setData(cNode->getData());
+						cNode->setData(tmp);
+
+						cNode = cNode->getLeftNode();
+					}
+					else
+						break;
+				}
+				else
+					break;
+			}
 		}
 	};
 }

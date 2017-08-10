@@ -15,5 +15,7 @@ int main()
 	pq.enqueue(20);
 	pq.enqueue(2);
 
+	pq.dequeue();
+
 	return 0;
 }
