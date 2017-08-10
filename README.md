@@ -11,4 +11,4 @@ This repository is including variable data structures using C++, and I coded mys
 
 -Binary Search Tree using linked list (ing)
 
--Priority Queue using heap(linked list-based) (ing)
+-Priority Queue using heap(linked list-based) (finished)
