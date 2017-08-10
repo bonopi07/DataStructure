@@ -49,7 +49,7 @@ namespace jsm {
 				return false;
 		}
 
-		void insert(T _data) {
+		void push(T _data) {
 			if (!isFull())
 				data[++top] = _data;
 		}
