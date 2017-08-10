@@ -24,15 +24,15 @@ namespace jsm {
 	class Stack {
 	private:
 		int top;
-		unsigned int size;
+		unsigned int maxSize;
 		T *data;
 
 	public:
-		Stack() : top(-1), size(MAXSIZE) {
+		Stack() : top(-1), maxSize(MAXSIZE) {
 			data = new T[MAXSIZE];
 		}
 
-		Stack(unsigned int _size) : top(-1), size(_size) {
+		Stack(unsigned int _size) : top(-1), maxSize(_size) {
 			data = new T[_size];
 		}
 
@@ -44,7 +44,7 @@ namespace jsm {
 		}
 
 		bool isFull() {
-			if (top == size - 1)
+			if (top == maxSize - 1)
 				return true;
 			else
 				return false;
