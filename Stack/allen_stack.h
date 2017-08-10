@@ -2,12 +2,13 @@
 
 Author: Seongmin Jeong (Allen)
 Goal: design stack data structure using array
-function: insert, pop, peak, empty, full, print all data
+function: push, pop, peak, isEmpty, isFull, printAllData, getSize
 
 ver 1.0: used class, only store integer type
 ver 1.1: used template
 ver 1.2: used namespace
-ver 1.3: fixed default size (1MB)
+ver 1.3: fixed default _size (1MB)
+ver 1.4: added method: getSize
 
 */
 
@@ -23,16 +24,16 @@ namespace jsm {
 	class Stack {
 	private:
 		int top;
-		unsigned int dataLen;
+		unsigned int size;
 		T *data;
 
 	public:
-		Stack() : top(-1), dataLen(MAXSIZE) {
+		Stack() : top(-1), size(MAXSIZE) {
 			data = new T[MAXSIZE];
 		}
 
-		Stack(unsigned int size) : top(-1), dataLen(size) {
-			data = new T[size];
+		Stack(unsigned int _size) : top(-1), size(_size) {
+			data = new T[_size];
 		}
 
 		bool isEmpty() {
@@ -43,10 +44,14 @@ namespace jsm {
 		}
 
 		bool isFull() {
-			if (top == dataLen - 1)
+			if (top == size - 1)
 				return true;
 			else
 				return false;
+		}
+
+		unsigned int getSize() {
+			return size;
 		}
 
 		void push(T _data) {
