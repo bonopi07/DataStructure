@@ -51,7 +51,7 @@ namespace jsm {
 		}
 
 		unsigned int getSize() {
-			return size;
+			return top+1;
 		}
 
 		void push(T _data) {
