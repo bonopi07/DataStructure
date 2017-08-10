@@ -2,10 +2,10 @@
 
 Author: Seongmin Jeong (Allen)
 Goal: design priority queue data structure using min heap(complete binary tree)
-Function: isEmpty, getSize, enqueue, dequeue, deleteAllData(=Heap Sort)
+Function: isEmpty, getSize, enqueue, dequeue
 
 ver 1.0: used namespace, template, class
-ver 1.1: finished all methods except deleteAllData
+ver 1.1: finished all methods
 
 */
 
@@ -192,6 +192,11 @@ namespace jsm {
 				else
 					break;
 			}
+		}
+
+		~PriorityQueue() {
+			while (!isEmpty())
+				dequeue();
 		}
 	};
 }
